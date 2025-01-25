@@ -45,7 +45,7 @@ def hello() -> str:
     dt.fit(X, y)
     y_pred =  dt.predict(X_test)
     rmse = np.sqrt(mean_squared_error(y_test, y_pred))
-    return "Hello, World!"+str(rmse)
+    return "RMSE value: "+str(rmse)
 
 
 def shutdown_handler(signal_int: int, frame: FrameType) -> None:
