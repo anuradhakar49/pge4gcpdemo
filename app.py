@@ -15,6 +15,15 @@
 import signal
 import sys
 from types import FrameType
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import mean_squared_error
+from google.cloud import storage
+from joblib import dump
+from sklearn.preprocessing import StandardScaler
+from sklearn.datasets import load_iris
 
 from flask import Flask
 
@@ -30,8 +39,15 @@ def hello() -> str:
 
     # https://cloud.google.com/run/docs/logging#correlate-logs
     logger.info("Child logger with trace Id.")
-
-    return "Hello, World!"
+    iris = d.load_iris()
+    X = iris.data[:, [2, 3]]
+    y = iris.target
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
+    dt = DecisionTreeClassifier(max_depth=3, min_samples_leaf=10, random_state=1 )
+    dt.fit(X, y)
+    y_pred =  dt.predict(X_test)
+    rmse = np.sqrt(mean_squared_error(y_test, y_pred))
+    return "Hello, World!"+str(rmse)
 
 
 def shutdown_handler(signal_int: int, frame: FrameType) -> None:
