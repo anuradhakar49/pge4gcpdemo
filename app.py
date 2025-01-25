@@ -37,7 +37,7 @@ def hello() -> str:
 
     # https://cloud.google.com/run/docs/logging#correlate-logs
     logger.info("Child logger with trace Id.")
-    iris = d.load_iris()
+    iris = load_iris()
     X = iris.data[:, [2, 3]]
     y = iris.target
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
