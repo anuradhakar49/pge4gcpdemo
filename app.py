@@ -20,8 +20,6 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import mean_squared_error
-from google.cloud import storage
-from joblib import dump
 from sklearn.preprocessing import StandardScaler
 from sklearn.datasets import load_iris
 
